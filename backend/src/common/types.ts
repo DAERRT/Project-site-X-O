@@ -93,3 +93,33 @@ export enum Role {
     status: UserAccountStatus;
   
   };
+
+  export enum TaskStatus {
+
+    new = 'new',
+  
+    inProgress = 'inProgress',
+  
+    done = 'done',
+  
+  }
+  
+   
+  
+  export type TaskDto = {
+  
+    id: number;
+  
+    title: string;
+  
+    status: TaskStatus;
+  
+    createdAt: Date;
+  
+    author: SecuredUser;
+  
+  };
+  
+   
+  
+  export type CreateUpdateTaskDto = Omit<TaskDto, 'id' | 'createdAt' | 'author'>;
