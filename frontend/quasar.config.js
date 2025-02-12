@@ -12,25 +12,15 @@
 const { configure } = require('quasar/wrappers');
 
 
-module.exports = configure(function (/* ctx */) {
+module.exports = configure(function (ctx) {
   return {
-    // https://legacy-app.quasar.dev/quasar-cli-vite-v1/prefetch-feature
-    // preFetch: true,
 
-    // app boot file (/src/boot)
-    // --> boot files are part of "main.js"
-    // https://legacy-app.quasar.dev/quasar-cli-vite-v1/boot-files
-    boot: [
-      
-      'axios',
-    ],
+    boot: ['axios'],
 
-    // https://legacy-app.quasar.dev/quasar-cli-vite-v1/quasar-config-file#css
     css: [
       'app.scss'
     ],
 
-    // https://github.com/quasarframework/quasar/tree/dev/extras
     extras: [
       // 'ionicons-v4',
       // 'mdi-v7',
@@ -51,24 +41,14 @@ module.exports = configure(function (/* ctx */) {
         node: 'node20'
       },
 
-      vueRouterMode: 'hash', // available values: 'hash', 'history'
-      // vueRouterBase,
-      // vueDevtools,
-      // vueOptionsAPI: false,
+      vueRouterMode: 'history', 
+       env: {
+        API_ENDPOINT: ctx.dev
 
-      // rebuildCache: true, // rebuilds Vite/linter/etc cache on startup
+          ? 'http://0.0.0.0:3000'
 
-      // publicPath: '/',
-      // analyze: true,
-      // env: {},
-      // rawDefine: {}
-      // ignorePublicFolder: true,
-      // minify: false,
-      // polyfillModulePreload: true,
-      // distDir
-
-      // extendViteConf (viteConf) {},
-      // viteVuePluginOptions: {},
+          : 'https://your-domain.ru',
+       },
 
       vitePlugins: [
         ['vite-plugin-checker', {
@@ -103,7 +83,7 @@ module.exports = configure(function (/* ctx */) {
       // directives: [],
 
       // Quasar plugins
-      plugins: []
+      plugins: ['Notify']
     },
 
     // animations: 'all', // --- includes all animations
