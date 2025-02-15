@@ -18,6 +18,8 @@ const routes: RouteRecordRaw[] = [
 
       { path: 'users/:id', component: () => import('pages/UserEditPage.vue') },
 
+      { path: 'tasks', component: () => import('pages/TasksPage.vue') },
+
     ],
 
   },
@@ -41,7 +43,7 @@ const routes: RouteRecordRaw[] = [
     children: [{ path: '', component: () => import('pages/SignupPage.vue') }],
 
   },
-
+  
  
 
   // Always leave this as last one,

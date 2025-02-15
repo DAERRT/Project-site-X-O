@@ -35,28 +35,33 @@ export class TasksService {
   ) {}
 
   async create(createTaskDto: CreateUpdateTaskDto, user: any) {
-
     const authorUser = await this.usersService.findOneById(user.userId);
+    const assigneeUser = await this.usersService.findOneById(
+      createTaskDto.assignee.id,
+    );
 
- 
+    if (!authorUser) {
+      throw new Error('Author user not found');
+    }
 
+    if (!assigneeUser) {
+      throw new Error('Assignee user not found');
+    }
     const newTask = new Task();
-
     newTask.title = createTaskDto.title;
-
     newTask.status = createTaskDto.status;
-
     newTask.author = authorUser;
-
- 
+    newTask.assignee = assigneeUser;
 
     await this.taskRepository.save(newTask);
 
- 
-
     return newTask.getDto();
-
   }
+
+
+  
+
+
 
  
 
@@ -81,26 +86,22 @@ export class TasksService {
  
 
   async update(id: number, updateTaskDto: CreateUpdateTaskDto) {
-
     const existedTask = await this.findOne(id);
-
-    if (existedTask) {
-
+    const assigneeUser = await this.usersService.findOneById(
+      updateTaskDto.assignee.id,
+    );
+    if (existedTask && assigneeUser) {
       existedTask.title = updateTaskDto.title;
-
       existedTask.status = updateTaskDto.status;
-
- 
+      existedTask.assignee = assigneeUser;
 
       await this.taskRepository.save(existedTask);
 
- 
-
       return existedTask.getDto();
-
     }
-
+    throw new Error('Task or assignee not found');
   }
+
 
  
 

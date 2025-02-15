@@ -29,6 +29,8 @@ export enum Role {
     lastname: string;
   
     roles: Role[];
+
+    userId: number;
   
   }
   
@@ -115,6 +117,8 @@ export enum Role {
     status: TaskStatus;
   
     createdAt: Date;
+    
+    assignee: SecuredUser;
   
     author: SecuredUser;
   
